@@ -1,3 +1,40 @@
+<?php
+session_start();
+require "core/core.php";
+
+
+// // kalo sudah login redirect ke halaman utama
+// if (isset($_SESSION["login"])) {
+//     header("Location: admin/barang.php");
+//     exit;
+// }
+
+if (isset($_POST["submit"])) {
+    
+    // ambil email dan password
+    $email              = $_POST["email"];
+    $password           = $_POST["password"];
+
+    // cek apakah ada email yang sesuai
+    $queryUsername      = "SELECT * FROM users WHERE email = '$email'";
+    $result             = mysqli_query($conn, $queryUsername);
+    
+    if (mysqli_num_rows($result) === 1) {
+        
+        // cek juga apakah password nya sama dengan email dipilih
+        $row = (mysqli_fetch_assoc($result));
+        if (password_verify($password, $row["password"])) {
+            // $_SESSION["login"] = true;
+
+            header ("Location: admin/barang.php");
+            exit;
+        }
+    }else{
+        $error = false;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -59,16 +96,24 @@
                                                 <a href="#" class="btn btn-google"><i class="fa fa-google-plus"></i> Google+</a>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
-                                            <form action="index.html">
+                                        <?php if(isset($error))  : ?>
+                                            <span style="font-weight:bold; color:red;">Email / Password anda salah !</span>
+                                        <?php endif; ?>
+                                            <form action="" method="POST">
                                                 <div class="form-group">
-                                                    <input type="email" class="form-control" placeholder="Email" required>
+                                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Password" required>
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="remember" id="remember" class="form-control" placeholder="remember">
+                                                    <label for="remember">Remember me !</label>
                                                 </div>
                                                 <button type="submit" name="submit" class="btn btn-success btn-block">Login</button>
-                                                <a href="forgot.html" class="display-block text-center m-t-md text-sm">Forgot Password?</a>
+
                                                 <p class="text-center m-t-xs text-sm">Do not have an account?</p>
                                                 <a href="register.php" class="btn btn-default btn-block m-t-md">Create an account</a>
                                             </form>

@@ -27,14 +27,14 @@ function cari ($keyword){
 function register($data){
     global $conn;
 
-    $nama       = $_POST["nama"];
-    $username   = $_POST["username"];
-    $email      = $_POST["email"];
-    $password   = $_POST["password"];
-    $passwordConfirm   = $_POST["passwordConfirm"];
+    $nama               = htmlspecialchars(strtolower(stripslashes($data["nama"])));
+    $username           = htmlspecialchars(strtolower(stripslashes($data["username"])));
+    $email              = htmlspecialchars(strtolower($data["email"]));
+    $password           = mysqli_real_escape_string($conn, $data["password"]);
+    $passwordConfirm    = mysqli_real_escape_string($conn, $data["passwordConfirm"]);
 
     // cek email
-    $result     = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
+    $result             = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
     if (mysqli_fetch_assoc($result)) {
         echo "<script>
         alert ('Email sudah ada yang pakai');
@@ -51,6 +51,10 @@ function register($data){
     }
 
     // generate password
-    $password   = hash('sha256', $password);
-    var_dump ($password);die;
+    $password   = password_hash($password, PASSWORD_DEFAULT);
+
+    $query1     = "INSERT INTO users VALUES ('', '$nama', '$username','$email','$password')";
+    $result2    = mysqli_query($conn, $query1);
+
+    return mysqli_affected_rows($conn);
 }

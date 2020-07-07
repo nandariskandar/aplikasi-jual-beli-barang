@@ -1,4 +1,5 @@
 <?php
+// session_start();
 require "../core/core.php";
 
 // PAGINATION

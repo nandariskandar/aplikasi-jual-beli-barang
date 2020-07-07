@@ -2,9 +2,11 @@
 require "core/core.php";
 
 if(isset($_POST["submit"])){
+    // var_dump($_POST);die;
     if (register($_POST) > 0) {
         echo "<script>
         alert('Data berhasil di tambahkan');
+        document.location.href = 'login.php';
         </script>" ;
     }else{
         echo "<script>
