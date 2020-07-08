@@ -4,7 +4,7 @@
 $servername             = "localhost";
 $username               = "root";
 $password               = "";
-$dbname                 = "malasngoding_kios";
+$dbname                 = "prdk";
 
 $conn                   = mysqli_connect($servername, $username, $password, $dbname);
 

@@ -1,5 +1,5 @@
         <!-- Title -->
-        <title>Modern | Admin Dashboard Template</title>
+        <title><?= $tittle; ?></title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -8,6 +8,7 @@
         <meta name="author" content="Steelcoders" />
         
         <!-- Styles -->
+        <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon.ico" />
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
         <link href="../assets/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
         <link href="../assets/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>

@@ -127,7 +127,7 @@
                                         <li role="presentation"><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox<span class="badge badge-success pull-right">4</span></a></li>
                                         <li role="presentation" class="divider"></li>
                                         <li role="presentation"><a href="lock-screen.html"><i class="fa fa-lock"></i>Lock screen</a></li>
-                                        <li role="presentation"><a href="login.html"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
+                                        <li role="presentation"><a href="../logout.php"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
                                     </ul>
                                 </li>
                                
@@ -136,15 +136,14 @@
                     </div>
                 </div>
             </div><!-- Navbar -->
-           
             <div class="page-sidebar sidebar horizontal-bar">
                 <div class="page-sidebar-inner">
                     <ul class="menu accordion-menu">
-                        <li class="active"><a href="index.html"><span class="menu-icon fa fa-home"></span><p>Dashboard</p></a></li>
-                        <li><a href="profile.html"><span class="menu-icon icon-social-dropbox"></span><p>Data Barang</p></a></li>
-                        <li><a href="profile.html"><span class="menu-icon icon-notebook"></span><p>Entri Penjualan</p></a></li>
-                        <li><a href="profile.html"><span class="menu-icon fa fa-photo"></span><p>Ganti photo</p></a></li>
-                        <li><a href="profile.html"><span class="menu-icon fa fa-check"></span><p>Security</p></a></li>
+                        <li><a href="../admin/index.php"><span class="menu-icon fa fa-home"></span><p>Dashboard</p></a></li>
+                        <li><a href="../admin/barang.php"><span class="menu-icon icon-social-dropbox"></span><p>Data Barang</p></a></li>
+                        <li><a href="../admin/entry.php"><span class="menu-icon icon-notebook"></span><p>Entri Penjualan</p></a></li>
+                        <li><a href="../admin/photo.php"><span class="menu-icon fa fa-photo"></span><p>Ganti photo</p></a></li>
+                        <li><a href="../admin/security.php"><span class="menu-icon fa fa-check"></span><p>Security</p></a></li>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->

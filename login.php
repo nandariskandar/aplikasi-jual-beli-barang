@@ -2,14 +2,26 @@
 session_start();
 require "core/core.php";
 
+if (isset ($_COOKIE["id"]) && isset ($_COOKIE["key"])) {
+    $id      = $_COOKIE["id"];
+    $key     = $_COOKIE["key"];
 
-// // kalo sudah login redirect ke halaman utama
-// if (isset($_SESSION["login"])) {
-//     header("Location: admin/barang.php");
-//     exit;
-// }
+    // cek id
+    $result     = mysqli_query($conn, "SELECT * FROM users WHERE id = $id");
+    $row        = mysqli_fetch_assoc($result);
+    if($key === hash('sha25', $row["password"]) ){
+        $_SESSION["login"] = true;
+    }
+}
+
+if(isset($_SESSION["login"])){
+    header("Location: admin/barang.php");
+    exit;
+}
+
 
 if (isset($_POST["submit"])) {
+    // var_dump($_POST);die;
     
     // ambil email dan password
     $email              = $_POST["email"];
@@ -24,13 +36,18 @@ if (isset($_POST["submit"])) {
         // cek juga apakah password nya sama dengan email dipilih
         $row = (mysqli_fetch_assoc($result));
         if (password_verify($password, $row["password"])) {
-            // $_SESSION["login"] = true;
+            $_SESSION["login"] = true;
 
-            header ("Location: admin/barang.php");
+            // set cookie
+            if (isset($_POST["remember"])) {
+                setcookie('id', $row["id"], time()+60);
+                setcookie('key', hash('sha256', $row["password"]), time()+60);
+            }
+            header("Location: admin/barang.php");
             exit;
         }
     }else{
-        $error = false;
+        $error = true;
     }
 }
 ?>
@@ -40,7 +57,7 @@ if (isset($_POST["submit"])) {
     <head>
         
         <!-- Title -->
-        <title>Modern | Login - Sign in alt</title>
+        <title>Nariskan | Sign in</title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -101,6 +118,7 @@ if (isset($_POST["submit"])) {
                                         <?php if(isset($error))  : ?>
                                             <span style="font-weight:bold; color:red;">Email / Password anda salah !</span>
                                         <?php endif; ?>
+                                        
                                             <form action="" method="POST">
                                                 <div class="form-group">
                                                     <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
@@ -113,10 +131,12 @@ if (isset($_POST["submit"])) {
                                                     <label for="remember">Remember me !</label>
                                                 </div>
                                                 <button type="submit" name="submit" class="btn btn-success btn-block">Login</button>
+                                            
+                                             </form>
+                                             
+                                             <p class="text-center m-t-xs text-sm">Do not have an account?</p>
+                                            <a href="register.php" class="btn btn-default btn-block m-t-md">Create an account</a>
 
-                                                <p class="text-center m-t-xs text-sm">Do not have an account?</p>
-                                                <a href="register.php" class="btn btn-default btn-block m-t-md">Create an account</a>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
