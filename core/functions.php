@@ -58,3 +58,16 @@ function register($data){
 
     return mysqli_affected_rows($conn);
 }
+
+function tambah($data){
+    global $conn;
+
+    $nama          = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+    $jenis         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+    $supplier      = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+    $modal         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+    $harga         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+    $jumlah        = htmlspecialchars(stripslashes(strtolower($data["nama"])));
+
+    
+}

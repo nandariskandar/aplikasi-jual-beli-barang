@@ -40,6 +40,7 @@ require "../inc/header.php";
     <div class="container">
         <h3>Data Barang</h3>
     </div>
+    
 </div>
 
 <br>
@@ -48,8 +49,13 @@ require "../inc/header.php";
     <div class="col-lg-12 col-md-12">
         <div class="panel panel-white">
             <div class="panel-body">
+                
                 <div class="table-responsive project-stats">  
+                    
             <div class="col-lg-12 col-md-6">
+                <a href="tambah.php">
+                    <button type="button" name="tambah" class="btn btn-primary btn-addon m-b-sm"><i class="fa fa-plus"></i> Tambah Data</button>
+                </a>
                 <form action="" method="post">
                     <input type="text" name="keyword" id="keyword">
                     <button type="submit" name="cari" id="cari"><i class="fa fa-search"></i></button>
@@ -100,9 +106,10 @@ require "../inc/header.php";
                                <td><?= $brng["harga"] ?></td>
                                <td><?= $brng["jumlah"] ?></td>
                                <td>
-                                   <button type="button" class="btn btn-info btn-rounded">Detail</button>
-                                    <button type="button" class="btn btn-warning btn-rounded">Edit</button>
-                                    <button type="button" class="btn btn-danger btn-rounded">Delete</button>
+                                    <a href="update.php?id=<?= $brng["id"]; ?>">
+                                        <button type="button" name="update" id="update" class="btn btn-success">Update</button>
+                                    </a>
+                                    <button type="button" name="delete" class="btn btn-danger btn-rounded">Delete</button>
                                </td>
                             </tr>
                        </tbody>
@@ -119,8 +126,7 @@ require "../inc/header.php";
 </div><!-- Main Wrapper -->
 </div><!-- Page Inner -->
 </main><!-- Page Content -->
-        
-        
+
 <div class="cd-overlay"></div>
 <?php require "../inc/footer.php";?>
 </body>
