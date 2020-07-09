@@ -4,7 +4,7 @@
 $servername             = "localhost";
 $username               = "root";
 $password               = "";
-$dbname                 = "prdk";
+$dbname                 = "nariskan";
 
 $conn                   = mysqli_connect($servername, $username, $password, $dbname);
 

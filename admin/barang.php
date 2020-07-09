@@ -1,21 +1,21 @@
 <?php
 session_start();
-require "../core/core.php";
-
 
 if(!isset($_SESSION["login"])){
     header("Location: ../login.php");
     exit;
 }
 
+require "../core/core.php";
+
 // PAGINATION
 $jumlahDataPerHalaman   = 5;
-$jumlahSeluruhData      = count(query("SELECT * FROM barang"));
+$jumlahSeluruhData      = count(query("SELECT * FROM tb_barang"));
 $jumlahHalaman          = ceil($jumlahSeluruhData / $jumlahDataPerHalaman);
 $halamanAktif           = (isset ($_GET["halaman"])) ? $_GET["halaman"] : 1;
 $dataAwal               = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
-$barang                 = query("SELECT * FROM barang LIMIT $dataAwal, $jumlahDataPerHalaman");
+$barang                 = query("SELECT * FROM tb_barang LIMIT $dataAwal, $jumlahDataPerHalaman");
 
 if(isset($_POST["cari"])){
     $barang = cari($_POST["keyword"]);
@@ -49,13 +49,12 @@ require "../inc/header.php";
     <div class="col-lg-12 col-md-12">
         <div class="panel panel-white">
             <div class="panel-body">
-                
                 <div class="table-responsive project-stats">  
-                    
             <div class="col-lg-12 col-md-6">
                 <a href="tambah.php">
                     <button type="button" name="tambah" class="btn btn-primary btn-addon m-b-sm"><i class="fa fa-plus"></i> Tambah Data</button>
                 </a>
+                
                 <form action="" method="post">
                     <input type="text" name="keyword" id="keyword">
                     <button type="submit" name="cari" id="cari"><i class="fa fa-search"></i></button>
@@ -87,7 +86,7 @@ require "../inc/header.php";
             </div>
 
             <div id="container">
-                   <table class="table">
+                   <table class="table table-hover">
                        <thead>
                            <tr>
                                <th>No</th>
@@ -97,19 +96,24 @@ require "../inc/header.php";
                                <th>Opsi</th>
                            </tr>
                        </thead>
+                       <tbody>
                        <?php $no=1;?>
                        <?php foreach ($barang as $brng) : ?>
-                       <tbody>
-                           <tr>
+                        <tr>
                                <th scope="row"><?= $no + $dataAwal; ?></th>
                                <td><?= $brng["nama"] ?></td>
                                <td><?= $brng["harga"] ?></td>
                                <td><?= $brng["jumlah"] ?></td>
                                <td>
-                                    <a href="update.php?id=<?= $brng["id"]; ?>">
-                                        <button type="button" name="update" id="update" class="btn btn-success">Update</button>
+                                    <a href="detail.php?id=<?= $brng["id"]; ?>">
+                                        <button type="submit" name="detail" id="detail" class="btn btn-warning btn-rounded">Detail</button>
                                     </a>
-                                    <button type="button" name="delete" class="btn btn-danger btn-rounded">Delete</button>
+                                    <a href="update.php?id=<?= $brng["id"]; ?>">
+                                        <button type="submit" name="update" id="update" class="btn btn-success btn-rounded">Update</button>
+                                    </a>
+                                    <a href="delete.php?id=<?= $brng["id"]; ?>">
+                                        <button type="submit" name="delete" id="delete" class="btn btn-danger btn-rounded">Delete</button>
+                                    </a>
                                </td>
                             </tr>
                        </tbody>

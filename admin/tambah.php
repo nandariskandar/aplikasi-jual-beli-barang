@@ -1,17 +1,18 @@
 <?php
 require "../core/core.php";
 
-$brng = query("SELECT * FROM barang");
-// var_dump($brng);
 
 if (isset($_POST["tambah"])) {
+    // var_dump($_POST);die;
     if (tambah($_POST) > 0) {
         echo "<script>
-        alert('Update data telah berhasil');
+        alert('Tambah data telah berhasil');
+        document.location.href= 'barang.php';
         </script>";
     }else{
         echo "<script>
-        alert('Update data gagal');
+        alert('Tambah data gagal');
+        document.location.href= 'tambah.php';
         </script>";
     }
 }
@@ -22,7 +23,7 @@ if (isset($_POST["tambah"])) {
 <html lang="en">
 <head>
     <?php
-    $tittle = "PAGE UPDATE";
+    $tittle = "PAGE TAMBAH DATA BARANG";
     require "../inc/header.php"; 
     ?>
 </head>
@@ -46,7 +47,7 @@ if (isset($_POST["tambah"])) {
 
 
 
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="" method="POST">
         <div class="form-group">
             <label for="nama" class="col-sm-2 control-label">Nama</label>
                 <div class="col-sm-10">
@@ -55,36 +56,33 @@ if (isset($_POST["tambah"])) {
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Jenis</label>
-            <!-- <div class="col-sm-10"> -->
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="makanan" id="makanan">Makanan</input>
-                </label>
-                <label>
-                    <input type="checkbox" name="minuman" id="minuman">Minuman</input>
-                </label>
-                <label>
-                    <input type="checkbox" name="aksesoris" id="aksesoris">Aksesoris</input>
-                </label>
-                <label>
-                    <input type="checkbox" name="rokok" id="rokok">Rokok</input>
-                </label>
-            </div>
-            <!-- </div> -->
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="jenis" id="jenis" value="makanan">Makanan
+                    </label>
+                    <label>
+                        <input type="checkbox" name="jenis" id="jenis" value="minuman">Minuman
+                    </label>
+                    <label>
+                        <input type="checkbox" name="jenis" id="jenis" value="aksesoris">Aksesoris
+                    </label>
+                    <label>
+                        <input type="checkbox" name="jenis" id="jenis" value="rokok">Rokok
+                    </label>
+                </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Supplier</label>
             <div class="col-sm-10">
-                <select multiple class="form-control" name="supplier">
-                    <option>PT  Makamur Jaya</option>
-                    <option>PT  Surga</option>
-                    <option>PT  Sido Mulyo</option>
-                    <option>PT  Jamaika</option>
-                    <option>PT  Surya</option>
-                    <option>PT  Surya</option>
-                    <option>PT  Ptan</option>
-                    <option>PT  Sampoerna</option>
-                    <option>PT  Harum</option>
+                <select multiple class="form-control" name="supplier" id="supplier">
+                    <option name="supplier" value="PT. Makmur Jaya">PT  Makamur Jaya</option>
+                    <option name="supplier" value="PT. Surga">PT  Surga</option>
+                    <option name="supplier" value="PT. Sido Mulyo">PT  Sido Mulyo</option>
+                    <option name="supplier" value="PT. Jamaika">PT  Jamaika</option>
+                    <option name="supplier" value="PT. Surya">PT  Surya</option>
+                    <option name="supplier" value="PT. Ptan">PT  Ptan</option>
+                    <option name="supplier" value="PT. Sampoerna">PT  Sampoerna</option>
+                    <option name="supplier" value="PT. Harum">PT  Harum</option>
                 </select>
             </div>
         </div>
@@ -93,7 +91,7 @@ if (isset($_POST["tambah"])) {
             <div class="col-sm-10">
                 <div class="input-group m-b-sm">
                     <span class="input-group-addon">Rp.</span>
-                    <input type="text" class="form-control" name="modal" id="modal">
+                    <input type="number" class="form-control" name="modal" id="modal">
                 </div>
             </div>
         </div>
@@ -102,21 +100,21 @@ if (isset($_POST["tambah"])) {
             <div class="col-sm-10">
                 <div class="input-group m-b-sm">
                     <span class="input-group-addon">Rp.</span>
-                    <input type="text" class="form-control" name="harga" id="harga">
+                    <input type="number" class="form-control" name="harga" id="harga">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="jumlah" class="col-sm-2 control-label">Jumlah</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" name="jumlah" id="jumlah">
+                    <input type="number" class="form-control" name="jumlah" id="jumlah">
                 </div>
         </div>
         <div class="form-group pull-right">
-            <button type="submit" name="update" id="update">Update</button>
-            <a href="">
-                <button type="submit" name="close" id="close">Close</button>
+            <a href="barang.php">
+                <button type="submit" name="close" id="close" class="btn btn-primary btn-rounded">Close</button>
             </a>
+            <button type="submit" name="tambah" id="tambah" class="btn btn-success btn-rounded">Tambah</button>
         </div>
     </form>
 

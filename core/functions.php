@@ -1,5 +1,7 @@
 <?php
 
+
+
 function query ($query){
     global $conn;
 
@@ -8,6 +10,7 @@ function query ($query){
     while($row  = mysqli_fetch_assoc($result)){
         $rows[] = $row;
     }
+    
     return $rows;
 }
 
@@ -63,11 +66,51 @@ function tambah($data){
     global $conn;
 
     $nama          = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $jenis         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $supplier      = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $modal         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $harga         = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $jumlah        = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-
+    $jenis         = htmlspecialchars(stripslashes(strtolower($data["jenis"])));
+    $supplier      = htmlspecialchars(stripslashes(strtolower($data["supplier"])));
+    $modal         = htmlspecialchars(stripslashes(strtolower($data["modal"])));
+    $harga         = htmlspecialchars(stripslashes(strtolower($data["harga"])));
+    $jumlah        = htmlspecialchars(stripslashes(strtolower($data["jumlah"])));
+    $sisa          = htmlspecialchars(stripslashes(strtolower($data["sisa"])));
     
+    // cek
+    $result         = mysqli_query($conn, "INSERT INTO tb_barang VALUES
+                        ('', '$nama', '$jenis', '$supplier', '$modal', '$harga', '$jumlah', '$sisa')");
+
+    return mysqli_affected_rows($conn);
+}
+
+function delete($id){
+    global $conn;
+
+    $query      = "DELETE FROM barang WHERE id=$id";
+    $result     = mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function update($data){
+    global $conn;
+
+
+    $id            = $data["id"];
+    $nama          = htmlspecialchars($data["nama"]);
+    $jenis         = htmlspecialchars($data["jenis"]);
+    $supplier      = htmlspecialchars($data["supplier"]);
+    $modal         = htmlspecialchars($data["modal"]);
+    $harga         = htmlspecialchars($data["harga"]);
+    $jumlah        = htmlspecialchars($data["jumlah"]);
+    
+    $query         = "UPDATE tb_barang SET
+                    nama        =   '$nama',
+                    jenis       =   '$jenis',
+                    supplier    =   '$supplier',
+                    modal       =   '$modal',
+                    harga       =   '$harga',
+                    jumlah      =   '$jumlah'
+                    WHERE id=$id";
+
+    $result         = mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
 }

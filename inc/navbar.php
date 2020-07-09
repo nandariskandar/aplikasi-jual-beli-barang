@@ -1,4 +1,3 @@
-
         <main class="page-content content-wrap">
             <div class="navbar">
                 <div class="navbar-inner container">
