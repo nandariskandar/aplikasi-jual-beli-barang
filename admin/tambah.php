@@ -47,7 +47,15 @@ if (isset($_POST["tambah"])) {
 
 
 
-    <form class="form-horizontal" action="" method="POST">
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="gambar" class="col-sm-2 control-label">Gambar</label>
+            <div class="col-sm-10">
+                <input type="file" id="gambar" name="gambar" onchange="previewImage();"/>
+                <br>
+                <img src ="../assets/images/galery.png" width="100" id="image-preview" alt="image preview"/>
+                <br>
+        </div>
         <div class="form-group">
             <label for="nama" class="col-sm-2 control-label">Nama</label>
                 <div class="col-sm-10">
@@ -109,22 +117,24 @@ if (isset($_POST["tambah"])) {
                 <div class="col-sm-1">
                     <input type="number" class="form-control" name="jumlah" id="jumlah">
                 </div>
-        </div>
+            </div>
         <div class="form-group pull-right">
+
+            <button type="submit" name="tambah" id="tambah" class="btn btn-success btn-rounded">Tambah</button>
+        </div>
+        <input type="hidden" class="form-control" name="sisa" id="sisa" value="sisa">
+
+    </form>
+    </div>
+            </div>
             <a href="barang.php">
                 <button type="submit" name="close" id="close" class="btn btn-primary btn-rounded">Close</button>
             </a>
-            <button type="submit" name="tambah" id="tambah" class="btn btn-success btn-rounded">Tambah</button>
-        </div>
-    </form>
-
-
-    </div>
-            </div>
         </dv>
     </dv>
 </dv>
 
+<script src="../assets/js/script1.js"></script>
 
 <?php require "../inc/footer.php"; ?>
 </body>

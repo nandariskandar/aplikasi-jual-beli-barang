@@ -54,7 +54,17 @@ $brng = query("SELECT * FROM tb_barang WHERE id=$id")[0];
         <div class="panel panel-white">
             <div class="panel-body">
 
-    <form class="form-horizontal" action="" method="POST">
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+    <input type="hidden" class="form-control" name="id" id="id" value="<?= $brng["id"];  ?>">
+    <input type="hidden" class="form-control" name="gambarLama" id="gambarLama" value="<?= $brng["gambar"];  ?>">
+    <div class="form-group">
+            <label for="gambar" class="col-sm-2 control-label">Gambar</label>
+            <div class="col-sm-10">
+                <input type="file" id="gambar" name="gambar" onchange="previewImage();">
+                <br>
+                <img src ="../assets/images/barang/<?= $brng["gambar"]; ?>" width="100" id="image-preview" alt="image preview">
+                <br>
+    </div>
         <input type="hidden" class="form-control" name="id" id="id" value="<?= $brng["id"];  ?>">
         <div class="form-group">
             <label for="nama" class="col-sm-2 control-label">Nama</label>
@@ -68,84 +78,65 @@ $brng = query("SELECT * FROM tb_barang WHERE id=$id")[0];
                     <input type="text" class="form-control" name="jenis" id="jenis" value="<?= $brng["jenis"];  ?>">
                 </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="supplier" class="col-sm-2 control-label">Supplier</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="supplier" id="supplier" value="<?= $brng["supplier"];  ?>">
                 </div>
-        </div>
-        <!-- <div class="form-group">
+        </div> -->
+        <div class="form-group">
             <label class="col-sm-2 control-label">Supplier</label>
             <div class="col-sm-10">
-                <select multiple class="form-control" name="supplier" id="supplier">
-                    <option name="supplier" id="supplier" value="PT. Makmur Jaya">PT  Makamur Jaya</option>
-                    <option name="supplier" id="supplier" value="PT. Surga">PT  Surga</option>
-                    <option name="supplier" id="supplier" value="PT. Sido Mulyo">PT  Sido Mulyo</option>
-                    <option name="supplier" id="supplier" value="PT. Jamaika">PT  Jamaika</option>
-                    <option name="supplier" id="supplier" value="PT. Surya">PT  Surya</option>
-                    <option name="supplier" id="supplier" value="PT. Ptan">PT  Ptan</option>
-                    <option name="supplier" id="supplier" value="PT. Sampoerna">PT  Sampoerna</option>
-                    <option name="supplier" id="supplier" value="PT. Harum">PT  Harum</option>
+                <select multiple class="form-control" name="supplier" id="supplier" value="<?= $brng["supplier"];  ?>">
+                    <option name="supplier" id="supplier">PT  Makamur Jaya</option>
+                    <option name="supplier" id="supplier">PT  Surga</option>
+                    <option name="supplier" id="supplier">PT  Sido Mulyo</option>
+                    <option name="supplier" id="supplier">PT  Jamaika</option>
+                    <option name="supplier" id="supplier">PT  Surya</option>
+                    <option name="supplier" id="supplier">PT  Ptan</option>
+                    <option name="supplier" id="supplier">PT  Sampoerna</option>
+                    <option name="supplier" id="supplier">PT  Harum</option>
                 </select>
             </div>
-        </div> -->
+        </div>
         <div class="form-group">
             <label for="modal" class="col-sm-2 control-label">Modal</label>
                 <div class="col-sm-10">
+                    <div class="input-group m-b-sm">
+                    <span class="input-group-addon">Rp.</span>
                     <input type="text" class="form-control" name="modal" id="modal" value="<?= $brng["modal"];  ?>">
+                    </div>
                 </div>
         </div>
-        <!-- <div class="form-group">
-            <label class="col-sm-2 control-label">Modal</label>
-            <div class="col-sm-10">
-                <div class="input-group m-b-sm">
-                    <span class="input-group-addon">Rp.</span>
-                    <input type="number" class="form-control" name="modal" id="modal" value="">
-                </div>
-            </div>
-        </div> -->
         <div class="form-group">
             <label for="harga" class="col-sm-2 control-label">Harga</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="harga" id="harga" value="<?= $brng["harga"]; ?>">
-                </div>
-        </div>
-        <!-- <div class="form-group">
-            <label class="col-sm-2 control-label">Harga</label>
             <div class="col-sm-10">
-                <div class="input-group m-b-sm">
+                    <div class="input-group m-b-sm">
                     <span class="input-group-addon">Rp.</span>
-                    <input type="text" class="form-control" name="harga" id="harga" value="">
-                </div>
+                    <input type="text" class="form-control" name="harga" id="harga" value="<?= $brng["harga"]; ?>">
             </div>
-        </div> -->
+        </div>
         <div class="form-group">
             <label for="jumlah" class="col-sm-2 control-label">Jumlah</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="jumlah" id="jumlah" value="<?= $brng["jumlah"];  ?>">
                 </div>
         </div>
-        <!-- <div class="form-group">
-            <label for="jumlah" class="col-sm-2 control-label">Jumlah</label>
-                <div class="col-sm-1">
-                    <input type="text" class="form-control" name="jumlah" id="jumlah" value="">
-                </div>
-        </div> -->
         <div class="form-group pull-right">
                 <button type="submit" name="update" id="update" class="btn btn-success btn-rounded">update</button>
         </div>
     </form>
-            <a href="barang.php">
+    <a href="barang.php" >
                 <button type="submit" name="close" id="close" class="btn btn-primary btn-rounded">Close</button>
             </a>
-
-
-    </div>
-            </div>
+    
+             </div>
         </dv>
     </dv>
+    
 </dv>
 
+<script src="../assets/js/script1.js"></script>
 
 <?php require "../inc/footer.php"; ?>
 </body>

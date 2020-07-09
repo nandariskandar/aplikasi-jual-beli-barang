@@ -1,7 +1,5 @@
 <?php
 
-
-
 function query ($query){
     global $conn;
 
@@ -65,17 +63,22 @@ function register($data){
 function tambah($data){
     global $conn;
 
-    $nama          = htmlspecialchars(stripslashes(strtolower($data["nama"])));
-    $jenis         = htmlspecialchars(stripslashes(strtolower($data["jenis"])));
-    $supplier      = htmlspecialchars(stripslashes(strtolower($data["supplier"])));
-    $modal         = htmlspecialchars(stripslashes(strtolower($data["modal"])));
-    $harga         = htmlspecialchars(stripslashes(strtolower($data["harga"])));
-    $jumlah        = htmlspecialchars(stripslashes(strtolower($data["jumlah"])));
-    $sisa          = htmlspecialchars(stripslashes(strtolower($data["sisa"])));
+    $gambar         = upload();
+    if (!$gambar) {
+        return false;
+    }
+    
+    $nama          = htmlspecialchars(stripslashes($data["nama"]));
+    $jenis         = htmlspecialchars(stripslashes($data["jenis"]));
+    $supplier      = htmlspecialchars(stripslashes($data["supplier"]));
+    $modal         = htmlspecialchars(stripslashes($data["modal"]));
+    $harga         = htmlspecialchars(stripslashes($data["harga"]));
+    $jumlah        = htmlspecialchars(stripslashes($data["jumlah"]));
+    $sisa          = htmlspecialchars(stripslashes($data["sisa"]));
     
     // cek
     $result         = mysqli_query($conn, "INSERT INTO tb_barang VALUES
-                        ('', '$nama', '$jenis', '$supplier', '$modal', '$harga', '$jumlah', '$sisa')");
+                        ('', '$gambar', '$nama', '$jenis', '$supplier', '$modal', '$harga', '$jumlah', '$sisa')");
 
     return mysqli_affected_rows($conn);
 }
@@ -83,7 +86,7 @@ function tambah($data){
 function delete($id){
     global $conn;
 
-    $query      = "DELETE FROM barang WHERE id=$id";
+    $query      = "DELETE FROM tb_barang WHERE id=$id";
     $result     = mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -92,8 +95,15 @@ function delete($id){
 function update($data){
     global $conn;
 
+    $id             = $data["id"];
+    $gambarLama     = $data["gambarLama"];
 
-    $id            = $data["id"];
+    if ($_FILES["gambar"]["error"] === 4 ) {
+        $gambar     = $gambarLama;
+    }else{
+        $gambar     = upload();
+    }
+    
     $nama          = htmlspecialchars($data["nama"]);
     $jenis         = htmlspecialchars($data["jenis"]);
     $supplier      = htmlspecialchars($data["supplier"]);
@@ -102,6 +112,7 @@ function update($data){
     $jumlah        = htmlspecialchars($data["jumlah"]);
     
     $query         = "UPDATE tb_barang SET
+                    gambar      =   '$gambar',
                     nama        =   '$nama',
                     jenis       =   '$jenis',
                     supplier    =   '$supplier',
@@ -113,4 +124,47 @@ function update($data){
     $result         = mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+function upload(){
+    global $conn;
+
+    $fileName       = $_FILES["gambar"]["name"];
+    $fileSize       = $_FILES["gambar"]["size"];
+    $error          = $_FILES["gambar"]["error"];
+    $tmpName        = $_FILES["gambar"]["tmp_name"];
+
+    if($error === 4){
+        echo "<script>
+        alert('gambar belum di update');
+        </script>";
+        return false;
+    }
+    
+    $ekstensiValid  = ["jpeg", "jpg", "png"];
+    $ekstensi       = explode('.', $fileName);
+    $ekstensi       = strtolower(end($ekstensi));
+    if(!in_array($ekstensi, $ekstensiValid)){
+        echo "<script>
+        alert('file bukan format gambar');
+        </script>";
+        return false;
+    }
+
+    if ($fileSize > 100000) {
+        echo "<script>
+        alert('gambar terlalu besar');
+        </script>";
+        return false;
+    }
+    
+
+    // generate
+    $newFileName    = uniqid();
+    $newFileName    .= ".";
+    $newFileName    .= $ekstensi;
+
+    // move
+    move_uploaded_file($tmpName, "../assets/images/barang/$newFileName");
+    return $newFileName;
 }

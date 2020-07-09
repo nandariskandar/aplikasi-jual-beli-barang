@@ -1,7 +1,7 @@
 <!-- <div class="cd-overlay"></div> -->
 
 
-<!-- <script src="../assets/js/script.js"></script> -->
+<script src="../assets/js/script.js"></script>
 <script src="../assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 <script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="../assets/plugins/pace-master/pace.min.js"></script>

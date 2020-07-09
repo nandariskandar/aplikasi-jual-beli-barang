@@ -7,7 +7,7 @@
                         </a>
                     </div>
                     <div class="logo-box">
-                        <a href="index.html" class="logo-text">
+                        <a href="../admin/index.php" class="logo-text">
                         <img src="../assets/images/logo.png" width="50" alt=""></img>
                         <span>PT. Nariskan</span></a>
                         

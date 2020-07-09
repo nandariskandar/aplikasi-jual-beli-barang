@@ -111,7 +111,7 @@ require "../inc/header.php";
                                     <a href="update.php?id=<?= $brng["id"]; ?>">
                                         <button type="submit" name="update" id="update" class="btn btn-success btn-rounded">Update</button>
                                     </a>
-                                    <a href="delete.php?id=<?= $brng["id"]; ?>">
+                                    <a href="delete.php?id=<?= $brng["id"]; ?>" onclick="return confirm('Are you sure ?');">
                                         <button type="submit" name="delete" id="delete" class="btn btn-danger btn-rounded">Delete</button>
                                     </a>
                                </td>
